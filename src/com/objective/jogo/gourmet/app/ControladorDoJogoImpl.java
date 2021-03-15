@@ -13,14 +13,18 @@ public class ControladorDoJogoImpl implements ControladorDoJogo {
 	
 	@Override
 	public Optional<String> pegarAdjetivoAtual() {
+		String adjetivo = noAtual.valor == null ? "null" : noAtual.valor;
+		
 		if(noAtualPossuiPrato()) return Optional.empty();
-		return Optional.of(noAtual.valor);
+		return Optional.of(adjetivo);
 	}
 
 	@Override
 	public Optional<String> pegarPratoAtual() {
+		String prato = noAtual.valor == null ? "null" : noAtual.valor;
+		
 		if(!noAtualPossuiPrato()) return Optional.empty();
-		return Optional.of(noAtual.valor);
+		return Optional.of(prato);
 	}
 
 	@Override
@@ -34,6 +38,7 @@ public class ControladorDoJogoImpl implements ControladorDoJogo {
 		String pratoAtual = noAtual.valor;
 		
 		No novoNo;
+		// Substitui o noAtual pelo o novo no
 		if(noPai.filhoDireita == noAtual) {
 			novoNo = noPai.filhoDireita(adjetivo).filhoDireita;			
 		} else {

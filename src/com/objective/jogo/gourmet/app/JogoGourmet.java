@@ -2,19 +2,25 @@ package com.objective.jogo.gourmet.app;
 
 import com.objective.jogo.gourmet.api.ControladorDoJogo;
 import com.objective.jogo.gourmet.api.InterfaceDoUsuario;
-import com.objective.jogo.gourmet.api.JogoGourmet;
 
-public class JogoGourmetImpl implements JogoGourmet {
+
+/**
+ * Define o funcionamento do jogo, modificando seu estado
+ * e interagindo com o usuário.
+ *
+ * @author pedro
+ *
+ */
+public class JogoGourmet {
 
 	private final ControladorDoJogo jogo;
 	private final InterfaceDoUsuario _interface;
 	
-	public JogoGourmetImpl(ControladorDoJogo jogo, InterfaceDoUsuario _interface) {
+	public JogoGourmet(ControladorDoJogo jogo, InterfaceDoUsuario _interface) {
 		this.jogo = jogo;
 		this._interface = _interface;
 	}
 	
-    @Override
     public void iniciar() {
         iniciarLoopDoJogo();
     }

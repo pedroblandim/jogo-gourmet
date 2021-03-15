@@ -2,6 +2,13 @@ package com.objective.jogo.gourmet.api;
 
 import java.util.Optional;
 
+/**
+ * Responsável por guardar o estado atual do jogo
+ * e controlar sua transição de estados.
+ * 
+ * @author pedro
+ *
+ */
 public interface ControladorDoJogo {
     
     public Optional<String> pegarAdjetivoAtual();

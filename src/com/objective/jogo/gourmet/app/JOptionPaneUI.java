@@ -1,7 +1,5 @@
 package com.objective.jogo.gourmet.app;
 
-import java.awt.Component;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -9,7 +7,10 @@ import com.objective.jogo.gourmet.api.InterfaceDoUsuario;
 
 public class JOptionPaneUI implements InterfaceDoUsuario {
 
-	private static final String TITLE = "Jogo Gourmet";
+	private static final String TITLE_JOGO_GOURMET = "Jogo Gourmet";
+	private static final String TITLE_CONFIRM = "Confirm";
+	private static final String TITLE_DESISTO = "Desisto";
+	private static final String TITLE_COMPLETE = "Complete";
 	
 	private static final String FRASE_INICIAL 						= "Pense em um prato que gosta";
 	private static final String FRASE_ACERTO 						= "Acertei de novo!";
@@ -23,13 +24,13 @@ public class JOptionPaneUI implements InterfaceDoUsuario {
 	
 	
 	@Override
-	public void apresentarFraseInicial() {  
-	    JOptionPane.showMessageDialog(frame, FRASE_INICIAL, TITLE, JOptionPane.PLAIN_MESSAGE);  
+	public void apresentarFraseInicial() {
+	    JOptionPane.showMessageDialog(frame, FRASE_INICIAL, TITLE_JOGO_GOURMET, JOptionPane.PLAIN_MESSAGE);  
 	}
 
 	@Override
 	public void apresentarFraseDeAcerto() {
-	    JOptionPane.showMessageDialog(frame, FRASE_ACERTO, TITLE, JOptionPane.DEFAULT_OPTION);  
+	    JOptionPane.showMessageDialog(frame, FRASE_ACERTO, TITLE_JOGO_GOURMET, JOptionPane.DEFAULT_OPTION);  
 	}
 
 	@Override
@@ -47,21 +48,23 @@ public class JOptionPaneUI implements InterfaceDoUsuario {
 	@Override
 	public String requisitarNovoAdjetivo(String novoPrato, String pratoEncontrado) {
 		String pergunta = String.format(FRASE_REQUISITAR_NOVO_ADJETIVO, novoPrato, pratoEncontrado);
-		return requisitarValor(pergunta);
+		return requisitarValor(pergunta, TITLE_COMPLETE);
 	}
 
 	@Override
 	public String requisitarNovoPrato() {
 		String pergunta = String.format(FRASE_REQUISITAR_NOVO_PRATO);
-		return requisitarValor(pergunta);
+		return requisitarValor(pergunta, TITLE_DESISTO);
 	}
 	
 	private boolean perguntarSimOuNao(String pergunta) {
-		Component fr = new JFrame();
-		return JOptionPane.showOptionDialog(fr, pergunta, TITLE, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, simOuNaoOptions, simOuNaoOptions[0]) == JOptionPane.YES_OPTION;
+		int simOuNao = JOptionPane.showOptionDialog(frame, pergunta, TITLE_CONFIRM, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, simOuNaoOptions, simOuNaoOptions[0]);
+		if(simOuNao == -1) System.exit(0); // Usuário fechou janela
+		
+		return  simOuNao == JOptionPane.YES_OPTION;
 	}
 	
-	private String requisitarValor(String pergunta) {
-		return (String)JOptionPane.showInputDialog(frame, pergunta, TITLE, JOptionPane.QUESTION_MESSAGE); 
+	private String requisitarValor(String pergunta, String title) {
+		return (String)JOptionPane.showInputDialog(frame, pergunta, title, JOptionPane.QUESTION_MESSAGE); 
 	}
 }
